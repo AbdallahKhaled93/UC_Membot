@@ -52,6 +52,7 @@ ChatBot::ChatBot(ChatBot &chatbot)  // copy constructor
     _currentNode = new GraphNode(chatbot._currentNode->GetID());
     _rootNode = new GraphNode(chatbot._rootNode->GetID());
     _chatLogic = new ChatLogic();
+    _chatLogic->SetChatbotHandle(this);
 
     // No need to create copies for the following instances :
     // 1- logically there is 1 of each in the project, we cannot have multiple chat logic for examples
@@ -83,10 +84,14 @@ ChatBot& ChatBot::operator=(const ChatBot &source) // copy assignment
 {
     std::cout << "Copy assigning of ChatBot object" << std::endl;
 
+    if (this == &source)
+        return *this;
+
     _image =  new wxBitmap();
     _currentNode = new GraphNode(source._currentNode->GetID());
     _rootNode = new GraphNode(source._rootNode->GetID());
     _chatLogic = new ChatLogic();
+    _chatLogic->SetChatbotHandle(this);
 
     // No need to create copies for the following instances :
     // 1- logically there is 1 of each in the project, we cannot have multiple chat logic for examples
@@ -101,6 +106,9 @@ ChatBot& ChatBot::operator=(const ChatBot &source) // copy assignment
 ChatBot& ChatBot::operator=(ChatBot &&source) // move assignment
 {
     std::cout << "Move assigning of ChatBot object" << std::endl;
+
+    if (this == &source)
+        return *this;
 
     _chatLogic = source._chatLogic;
     _chatLogic->SetChatbotHandle(this);
