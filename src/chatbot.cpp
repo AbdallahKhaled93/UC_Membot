@@ -66,10 +66,11 @@ ChatBot::ChatBot(ChatBot &&chatbot)  // move constructor
 {
     std::cout << "Calling ChatBot move constructor" << std::endl;
 
+    _chatLogic = chatbot._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
     _image = chatbot._image;
     _currentNode = chatbot._currentNode;
     _rootNode = chatbot._rootNode;
-    _chatLogic = chatbot._chatLogic;
 
     chatbot._image = NULL; // using NULL to be consisent with wx wxWidgets
     chatbot._currentNode = nullptr;
@@ -101,10 +102,11 @@ ChatBot& ChatBot::operator=(ChatBot &&source) // move assignment
 {
     std::cout << "Move assigning of ChatBot object" << std::endl;
 
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
     _image = source._image;
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
-    _chatLogic = source._chatLogic;
 
     source._image = NULL; // using NULL to be consisent with wx wxWidgets
     source._currentNode = nullptr;
