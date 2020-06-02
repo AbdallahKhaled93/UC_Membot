@@ -53,11 +53,15 @@ ChatBot::ChatBot(ChatBot &chatbot)  // copy constructor
     _rootNode = new GraphNode(chatbot._rootNode->GetID());
     _chatLogic = new ChatLogic();
 
-    *_image = *(chatbot._image);
-    *_currentNode = *(chatbot._currentNode);
-    *_rootNode = *(chatbot._rootNode);
-    *_chatLogic = *(chatbot._chatLogic);
+    // No need to create copies for the following instances :
+    // 1- logically there is 1 of each in the project, we cannot have multiple chat logic for examples
+    // 2- Also, the following objects may contain unique pointers so it is not possible to copy the content
+    _image = chatbot._image;
+    _currentNode = chatbot._currentNode;
+    _rootNode = chatbot._rootNode;
+    _chatLogic = chatbot._chatLogic;
 }
+
 ChatBot::ChatBot(ChatBot &&chatbot)  // move constructor
 {
     std::cout << "Calling ChatBot move constructor" << std::endl;
@@ -73,6 +77,7 @@ ChatBot::ChatBot(ChatBot &&chatbot)  // move constructor
     chatbot._chatLogic = nullptr;
 
 }
+
 ChatBot& ChatBot::operator=(const ChatBot &source) // copy assignment
 {
     std::cout << "Copy assigning of ChatBot object" << std::endl;
@@ -82,10 +87,13 @@ ChatBot& ChatBot::operator=(const ChatBot &source) // copy assignment
     _rootNode = new GraphNode(source._rootNode->GetID());
     _chatLogic = new ChatLogic();
 
-    *_image = *(source._image);
-    *_currentNode = *(source._currentNode);
-    *_rootNode = *(source._rootNode);
-    *_chatLogic = *(source._chatLogic);
+    // No need to create copies for the following instances :
+    // 1- logically there is 1 of each in the project, we cannot have multiple chat logic for examples
+    // 2- Also, the following objects may contain unique pointers so it is not possible to copy the content
+    _image = source._image;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
 
     return*this;
 }
