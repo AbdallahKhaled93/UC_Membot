@@ -57,7 +57,7 @@ ChatBot::ChatBot(ChatBot &chatbot)  // copy constructor
     // No need to create copies for the following instances :
     // 1- logically there is 1 of each in the project, we cannot have multiple chat logic for examples
     // 2- Also, the following objects may contain unique pointers so it is not possible to copy the content
-    _image = chatbot._image;
+    *_image = *(chatbot._image);
     _currentNode = chatbot._currentNode;
     _rootNode = chatbot._rootNode;
     _chatLogic = chatbot._chatLogic;
@@ -93,10 +93,10 @@ ChatBot& ChatBot::operator=(const ChatBot &source) // copy assignment
     _chatLogic = new ChatLogic();
     _chatLogic->SetChatbotHandle(this);
 
-    // No need to create copies for the following instances :
+    // No need to create copies for the following instances (except for image) :
     // 1- logically there is 1 of each in the project, we cannot have multiple chat logic for examples
     // 2- Also, the following objects may contain unique pointers so it is not possible to copy the content
-    _image = source._image;
+    *_image = *(source._image);
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
     _chatLogic = source._chatLogic;

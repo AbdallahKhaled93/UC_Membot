@@ -173,7 +173,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 
                             // store reference in child node and parent node
                             (*childNode)->AddEdgeToParentNode(edge.get());
-                            (*parentNode)->AddEdgeToChildNode(edge);
+                            (*parentNode)->AddEdgeToChildNode(std::move(edge));
                         }
 
                         ////
@@ -222,8 +222,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
     ChatBot cb("../images/chatbot.png");
     cb.SetChatLogicHandle(this);
     cb.SetRootNode(rootNode);
-    SetChatbotHandle(&cb);
-    rootNode->MoveChatbotHere(cb);
+    rootNode->MoveChatbotHere(std::move(cb));
     
     ////
     //// EOF STUDENT CODE
